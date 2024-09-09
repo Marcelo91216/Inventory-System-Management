@@ -1,9 +1,0 @@
-
-pom.xml
-src/main/resources/application.properties
-!src/main/java/
-target/
-.classpath
-.project
-.settings/
-
