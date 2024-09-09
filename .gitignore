@@ -1,8 +1,9 @@
 /target/
 
+*.gitignore
 /pom.xml
 .project
 .classpath
-/src/main/resources/application.properties
+*.properties
 .settings
 
