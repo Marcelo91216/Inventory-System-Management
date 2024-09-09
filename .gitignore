@@ -1,9 +1,4 @@
-/target/
 
-*.gitignore
-/pom.xml
-.project
-.classpath
+pom.xml
 *.properties
-.settings
-
+target/
