@@ -2,6 +2,5 @@ src/main/resources/
 target/
 .classpath
 .project
-.pom.xml
 .settings
 
