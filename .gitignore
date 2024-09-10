@@ -3,4 +3,5 @@ target/
 .classpath
 .project
 .settings
+sql_queries/createUser.sql
 

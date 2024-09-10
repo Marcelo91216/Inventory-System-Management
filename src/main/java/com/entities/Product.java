@@ -13,11 +13,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+//@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "product")
 public class Product {
@@ -32,4 +36,11 @@ public class Product {
 	
 	@Column(name = "start_at")
 	private LocalDateTime startAt;
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", startAt=" + startAt + "]";
+	}
+	
+	
 }
