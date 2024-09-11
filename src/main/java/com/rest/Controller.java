@@ -1,6 +1,7 @@
 package com.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,15 +9,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.entities.Product;
+import com.entities.ProductSqlNative;
 import com.entities.ProductWithoutStock;
 import com.entities.ProductsGroupedByStock;
 import com.entities.Stock;
+import com.exceptions.InvalidProductException;
+import com.exceptions.NotIDProductException;
 import com.services.ProductAndStockService;
 
 @RestController
@@ -85,5 +90,25 @@ public class Controller {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "An unexpected error has ocurred!");
 		}
 		return res;
+	}
+	
+	@PutMapping("/products/update")
+	private ResponseEntity<String> modifyExistingProduct(@RequestBody ProductSqlNative product) {
+		try {
+			service.updateProduct(product);
+		}
+		catch(NotIDProductException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+		catch(InvalidProductException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unexpected error!");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("The product was updated successfully");
 	}
 }

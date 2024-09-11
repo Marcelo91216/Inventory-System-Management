@@ -1,3 +1,7 @@
+/**
+ * @author guill
+ * */
+
 package com.services;
 
 import java.util.List;
@@ -5,9 +9,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 
 import com.entities.Product;
+import com.entities.ProductSqlNative;
 import com.entities.ProductWithoutStock;
 import com.entities.ProductsGroupedByStock;
 import com.entities.Stock;
+import com.exceptions.InvalidProductException;
+import com.exceptions.NotIDProductException;
 
 public interface ProductAndStockService {
 	
@@ -17,7 +24,12 @@ public interface ProductAndStockService {
 
 	List<ProductWithoutStock> getAllProductsFromOneStock(int idStock);
 	
-	void saveProduct(int stock_id);	// will recieve a new product with existing stock
+	void saveProduct(int stock_id);
 	
+	/**
+	 * @return List<ProductsGroupedByStock>
+	 * */
 	List<ProductsGroupedByStock> getProductsGroupedByStock();
+	
+	void updateProduct(ProductSqlNative product) throws InvalidProductException, NotIDProductException;
 }
