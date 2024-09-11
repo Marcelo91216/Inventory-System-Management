@@ -146,4 +146,17 @@ public class Controller {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
+	
+	@GetMapping("/products/sortedByStock/{ord}")
+	private List<Product> sortedProductsByStock(@PathVariable boolean ord){
+		try {
+			return service.getSortedProductsByStock(ord);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	
 }

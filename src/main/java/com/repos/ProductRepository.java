@@ -14,4 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findByOrderByStartAtAsc();
 	
 	List<Product> findByOrderByStartAtDesc();
+	
+	long countByStock(Stock stock);
 }

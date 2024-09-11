@@ -38,4 +38,6 @@ public interface ProductAndStockService {
 	void removeProduct(int id);
 	
 	List<Product> getSortedProductsByDate(boolean ord);
+	
+	List<Product> getSortedProductsByStock(boolean ord);
 }

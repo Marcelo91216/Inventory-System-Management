@@ -178,4 +178,23 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 			res = productRepo.findByOrderByStartAtAsc();
 		return res;
 	}
+	
+	/**
+	 * Return the list of products sorted by their stock disponibility, the user can determine the order with a boolean
+	 * @param boolean
+	 * @return List
+	 * */
+	@Override
+	public List<Product> getSortedProductsByStock(boolean ord) {
+		List<Product> res=productRepo.findAll()
+				.stream()
+				.sorted((p1, p2) -> {
+					if(ord)
+						return (int)(productRepo.countByStock(p2.getStock()) - productRepo.countByStock(p1.getStock()));
+					else
+						return (int)(productRepo.countByStock(p1.getStock()) - productRepo.countByStock(p2.getStock()));
+				})
+				.toList();
+		return res;
+	}
 }
