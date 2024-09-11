@@ -34,4 +34,8 @@ public interface ProductAndStockService {
 	void updateProduct(ProductSqlNative product) throws InvalidProductException, NotIDProductException;
 	
 	Product getProduct(int id);
+	
+	void removeProduct(int id);
+	
+	List<Product> getSortedProductsByDate(boolean ord);
 }

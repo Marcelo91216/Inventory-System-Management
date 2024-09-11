@@ -127,6 +127,12 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 		}
 	}
 	
+	/**
+	 * Obtain the product information
+	 * @param Integer
+	 * @return Product
+	 * @exception RuntimeException
+	 * */
 	@Override
 	public Product getProduct(int id) {
 		try {
@@ -138,5 +144,38 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 		catch(Exception e) {
 			throw new RuntimeException("");
 		}
+	}
+	
+	/**
+	 * Remove a product from the database
+	 * @param Integer
+	 * @return Void
+	 * @exception RuntimeException
+	 * */
+	@Override
+	public void removeProduct(int id) {
+		try {
+			if(!productRepo.existsById(id))
+				throw new RuntimeException("The product doesn't exist");
+			productRepo.deleteById(id);
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}
+	
+	/**
+	 * Get the list of all the products order by date, in ascending or descending order
+	 * @param boolean
+	 * @return List
+	 * */
+	@Override
+	public List<Product> getSortedProductsByDate(boolean ord) {
+		List<Product> res=null;
+		if(ord)
+			res = productRepo.findByOrderByStartAtDesc();
+		else
+			res = productRepo.findByOrderByStartAtAsc();
+		return res;
 	}
 }

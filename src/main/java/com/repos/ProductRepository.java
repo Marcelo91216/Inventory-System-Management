@@ -10,4 +10,8 @@ import com.entities.Stock;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	List<Product> findByStock(Stock stock);
+	
+	List<Product> findByOrderByStartAtAsc();
+	
+	List<Product> findByOrderByStartAtDesc();
 }

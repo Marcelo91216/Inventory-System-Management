@@ -30,7 +30,7 @@ public class Product {
 	@Column(name = "id")
 	private int id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "stock_id", referencedColumnName = "id")
 	private Stock stock;
 	

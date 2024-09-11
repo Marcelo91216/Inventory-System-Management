@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -116,6 +117,29 @@ public class Controller {
 	private Product getProduct(@PathVariable int id){
 		try {
 			return service.getProduct(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
+	
+	@DeleteMapping("/products/delete/{id}")
+	private ResponseEntity<String> removeProduct(@PathVariable int id){
+		try {
+			service.removeProduct(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("Successfully removed");
+	}
+	
+	@GetMapping("/products/sorted/{ord}")
+	private List<Product> sortedProductsByDate(@PathVariable boolean ord){
+		try {
+			return service.getSortedProductsByDate(ord);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
