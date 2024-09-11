@@ -158,5 +158,15 @@ public class Controller {
 		}
 	}
 	
-	
+	@DeleteMapping("/stocks/delete/{id}")
+	private ResponseEntity<String> removeStock(@PathVariable int id){
+		try {
+			service.removeStock(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("The stock and it's products were eliminated!");
+	}
 }

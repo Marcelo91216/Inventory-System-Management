@@ -153,6 +153,7 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 	 * @exception RuntimeException
 	 * */
 	@Override
+	@Transactional
 	public void removeProduct(int id) {
 		try {
 			if(!productRepo.existsById(id))
@@ -180,7 +181,7 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 	}
 	
 	/**
-	 * Return the list of products sorted by their stock disponibility, the user can determine the order with a boolean
+	 * Return the list of products sorted by their stock availability, the user can determine the order with a boolean
 	 * @param boolean
 	 * @return List
 	 * */
@@ -196,5 +197,25 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 				})
 				.toList();
 		return res;
+	}
+	
+	/**
+	 * Removes the stock and all of its products related
+	 * @param id
+	 * @return void
+	 * */
+	@Override
+	@Transactional
+	public void removeStock(int id) {
+		try {
+			Optional<Stock> stock = stockRepo.findById(id);
+			if(stock.isEmpty())
+				throw new RuntimeException("The stock doesn't exist!");
+			productRepo.deleteByStock(stock.get());
+			stockRepo.deleteById(id);
+		}
+		catch(Exception e) {
+			throw e;
+		}
 	}
 }
