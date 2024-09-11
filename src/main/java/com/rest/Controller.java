@@ -111,4 +111,15 @@ public class Controller {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body("The product was updated successfully");
 	}
+	
+	@GetMapping("/products/product/{id}")
+	private Product getProduct(@PathVariable int id){
+		try {
+			return service.getProduct(id);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+		}
+	}
 }

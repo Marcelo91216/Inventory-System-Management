@@ -111,12 +111,12 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 	@Override
 	@Transactional
 	public void updateProduct(ProductSqlNative product) throws InvalidProductException, NotIDProductException {
-		if(product.getStartAt()==null)
-			throw new InvalidProductException("The information was not correct");
-		Optional<Product> findIt = productRepo.findById(product.getId());
-		if(findIt.isEmpty())
-			throw new NotIDProductException("The product doesn’t exist");
 		try {
+			if(product.getStartAt()==null)
+				throw new InvalidProductException("The information was not correct");
+			Optional<Product> findIt = productRepo.findById(product.getId());
+			if(findIt.isEmpty())
+				throw new NotIDProductException("The product doesn’t exist");
 			Optional<Stock> stock = stockRepo.findById(product.getStockid());
 			if(stock.isEmpty())
 				throw new InvalidProductException("The information was not correct");
@@ -124,6 +124,19 @@ public class ProductAndStockServiceImple implements ProductAndStockService {
 		}
 		catch(Exception e) {
 			throw e;
+		}
+	}
+	
+	@Override
+	public Product getProduct(int id) {
+		try {
+			Optional<Product> product = productRepo.findById(id);
+			if(product.isEmpty())
+				throw new RuntimeException();
+			return product.get();
+		}
+		catch(Exception e) {
+			throw new RuntimeException("");
 		}
 	}
 }

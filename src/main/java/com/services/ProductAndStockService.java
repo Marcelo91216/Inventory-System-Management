@@ -32,4 +32,6 @@ public interface ProductAndStockService {
 	List<ProductsGroupedByStock> getProductsGroupedByStock();
 	
 	void updateProduct(ProductSqlNative product) throws InvalidProductException, NotIDProductException;
+	
+	Product getProduct(int id);
 }
