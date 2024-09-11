@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.entities.Product;
 import com.entities.ProductWithoutStock;
+import com.entities.ProductsGroupedByStock;
 import com.entities.Stock;
 import com.services.ProductAndStockService;
 
@@ -71,5 +72,18 @@ public class Controller {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Stock not found!");
 		}
 		return ResponseEntity.status(HttpStatus.OK).body("The creation was successful!");
+	}
+	
+	@GetMapping("/stocks/grouped")
+	private List<ProductsGroupedByStock> groupProductsByStock(){
+		List<ProductsGroupedByStock> res=null;
+		try {
+			res = service.getProductsGroupedByStock();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "An unexpected error has ocurred!");
+		}
+		return res;
 	}
 }

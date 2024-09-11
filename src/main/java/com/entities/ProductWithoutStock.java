@@ -22,4 +22,9 @@ public class ProductWithoutStock {
 		return "ProductWithoutStock [id=" + id + ", startAt=" + startAt + "]";
 	}
 
+//	Recieve a Product and convert it into a simple Product without the stock information
+	public ProductWithoutStock(Product product) {
+		this.id = product.getId();
+		this.startAt = product.getStartAt();
+	}
 }
