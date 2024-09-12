@@ -17,7 +17,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@Data
+/**
+ * Product is the entity that maps it into the 'product' table on the database.
+ * 
+ * @author Marcelo Eduardo Guillen Castillo
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -25,22 +29,36 @@ import lombok.Setter;
 @Entity
 @Table(name = "product")
 public class Product {
+	/**
+	 * Identification of the product.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
+	/**
+	 * The stock which the product belongs.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "stock_id", referencedColumnName = "id")
 	private Stock stock;
-	
+
+	/**
+	 * Date and time when the product was introduced into the company.
+	 */
 	@Column(name = "start_at")
 	private LocalDateTime startAt;
 
+	/**
+	 * Print on the console the identification number and the start date of the
+	 * product.
+	 * 
+	 * @return A description of the product.
+	 */
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", startAt=" + startAt + "]";
 	}
-	
-	
+
 }

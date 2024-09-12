@@ -1,16 +1,19 @@
 package com.entities;
 
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-// Class made for the User Story #5, in order to return a JSON of a stock and a list of its products id and start date
+/**
+ * A component that represents a Stock and his list of products without it's
+ * stock information.
+ * 
+ * @author Marcelo Eduardo Guillen Castillo
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,6 +21,13 @@ import lombok.ToString;
 @ToString
 @Component
 public class ProductsGroupedByStock {
+	/**
+	 * The stock to analyze.
+	 */
 	private Stock stock;
+
+	/**
+	 * The list of products without its stock that will belong to the stock.
+	 */
 	private List<ProductWithoutStock> products;
 }

@@ -11,14 +11,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * All the security configurations of the web service application.
+ * 
+ * @author Marcelo Eduardo Guillen Castillo
+ */
 @Configuration
 public class SecurityConfig {
+	/**
+	 * The CEO's password.
+	 */
 	@Value("${file.input.ceo}")
 	private String ceo;
 
+	/**
+	 * The employee's password.
+	 */
 	@Value("${file.input.employee}")
 	private String employee;
 
+	/**
+	 * Manages the details of the all the user's on the service, in this case all
+	 * this info is storage in memory.
+	 * 
+	 * @return The manager object of the user details in memory.
+	 */
 	@Bean
 	public InMemoryUserDetailsManager userDetailManager() {
 		UserDetails employee = User.builder().username("employee").password("{noop}" + this.employee).roles("EMPLOYEE")
@@ -28,6 +45,12 @@ public class SecurityConfig {
 		return new InMemoryUserDetailsManager(employee, ceo);
 	}
 
+	/**
+	 * Configures the filters of the users. Authorization configuration.
+	 * 
+	 * @param http The HTTP security.
+	 * @return The security filter chain.
+	 */
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(configurer -> configurer.requestMatchers(HttpMethod.GET, "/**").hasRole("EMPLOYEE")
