@@ -2,12 +2,4 @@
 The final project for the Java MTY Academy by Xideral
 
 ## Java Academy Final Project
-```java
-package main;
-
-public class Main{
-    public static void main(String... args){
-        System.out.println("Hello world!!!");
-    }
-}
-```
+Documentation is on it's own file, the presentation and the Software Requirements Specification file.
